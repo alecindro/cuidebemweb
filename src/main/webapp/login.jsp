@@ -55,19 +55,26 @@
 			<div class="row">
 				<div class="col-sm-2 col-md-4"></div>
 				<div class="col-xs-12 col-sm-8 col-md-4">
+				<form class="form-horizontal">
 				<div class="form-group">
 					<a class="btn btn-danger form-control" href="#" role="button">Recuperar
 						Senha</a>
 						</div>
+							
+						</form>
 				</div>
 				<div class="col-sm-2 col-md-4"></div>
 			</div>
 			<div class="row">
 				<div class="col-sm-2 col-md-4"></div>
 				<div class="col-xs-12 col-sm-8 col-md-4">
+				<form class="form-horizontal">
+				<div class="form-group">
 					<a class="btn btn-info form-control" href="/resources/cadastro.xhtml"
 						role="button">Não Possui uma conta? Clique aqui para se
 						cadastrar!</a>
+						</div>
+						</form>
 				</div>
 				<div class="col-sm-2 col-md-4"></div>
 			</div>
