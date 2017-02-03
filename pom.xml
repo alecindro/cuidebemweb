@@ -21,7 +21,7 @@
 
     <groupId>br.com</groupId>
     <artifactId>cuidebemweb</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>WildFly Quickstarts: cuidebemweb</name>
     <description>A starter Java EE 7 webapp project for use on JBoss WildFly / WildFly, generated from the jboss-javaee6-webapp archetype</description>
@@ -214,12 +214,22 @@
   		<artifactId>cuidebemsvc</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
+
   	<dependency>
   		<groupId>authsvc</groupId>
   		<artifactId>authsvc</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
-
+  	<dependency>
+  		<groupId>emailsvc</groupId>
+  		<artifactId>emailsvc</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>themecuidebem</groupId>
+  		<artifactId>themecuidebem</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
     </dependencies>
 
     <build>

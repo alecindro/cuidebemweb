@@ -81,19 +81,19 @@
 			<div class="row">
 				<div class="col-sm-2 col-md-4"></div>
 				<div class="col-xs-12 col-sm-8 col-md-4">
-				<p class="bg-danger">
+				
 					<%
 						String errorDescription = (String) request.getAttribute("qualiLoginFailure");
 						if (errorDescription != null) {
 					%>
 
-					<div class="error">
+					<div class="alert alert-danger fadein" style="text-align: center;margin-left: -15px;margin-right: -15px;">
 						<%=errorDescription%>
 					</div>
 					<%
 						}
 					%>
-					</p>
+					
 				</div>
 				<div class="col-sm-2 col-md-4"></div>
 			</div>

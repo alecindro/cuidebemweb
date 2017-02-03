@@ -12,6 +12,22 @@
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
   <context-param>
+  <param-name>primefaces.THEME</param-name>
+  <param-value>none</param-value>
+</context-param>
+<context-param>
+<param-name>primefaces.mobile.THEME</param-name>
+<param-value>themecuidebem</param-value>
+</context-param>
+<context-param>
+<param-name>primefaces.UPLOADER</param-name>
+<param-value>native</param-value>
+ </context-param>
+ <context-param>
+ <param-name>primefaces.FONT_AWESOME</param-name>
+ <param-value>true</param-value>
+</context-param>
+  <context-param>
 		<param-name>version</param-name>
 		<param-value>2017.0.0.1.a</param-value>
 	</context-param>

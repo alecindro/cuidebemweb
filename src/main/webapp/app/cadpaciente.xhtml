@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+<f:viewParam name="idpaciente" value="#{cadPaciente.idpaciente}"></f:viewParam>
+</f:metadata>	
+<pm:field>
+<p:outputLabel value="Foto:" for="fotopac"></p:outputLabel>
+<p:graphicImage id="fotopac" value="#{cadPaciente.pacientePhoto}" alt="Foto do paciente não cadastrada" stream="false">
+</p:graphicImage>
+</pm:field>
+<h:form enctype="multipart/form-data">
+<pm:field>
+	<p:outputLabel value="Cadastrar foto:" for="cadfotopac"></p:outputLabel>
+		<p:fileUpload value="#{cadPaciente.file}" mode="simple"
+			id="cadfotopac" />
+</pm:field>
+<pm:field>
+		<p:commandButton value="Carregar" icon="ui-icon-arrow-u" ajax="false"
+			actionListener="#{cadPaciente.upload}" action="pm:cadpaciente"/>
+</pm:field>
+</h:form>
+<h:form>
+<h:inputHidden value="#{cadPaciente.paciente.idpaciente}" />
+<pm:field>
+	<p:outputLabel value="Nome:" for="cadnome"></p:outputLabel>
+	<p:inputText class="form-control" id="cadnome" name="inputName"
+		value="#{cadPaciente.paciente.nome}" placeholder="Nome" required="true"></p:inputText>
+</pm:field>
+<pm:field>
+	<p:outputLabel value="Sobrenome:" for="cadsobrenome"></p:outputLabel>
+	<p:inputText class="form-control" name="inputSobreN" id="cadsobrenome"
+		value="#{cadPaciente.paciente.sobrenome}" placeholder="Sobrenome"></p:inputText>
+</pm:field>
+<pm:field>
+	<p:outputLabel value="Gênero:" for="cadgen"></p:outputLabel>
+	<p:selectOneRadio widgetVar="selectgen" layout="responsive" id="cadgen"
+		required="true" plain="true" columns="1" value="#{cadPaciente.paciente.genero}">
+		<f:selectItem itemLabel="Masculino" itemValue="1" />
+		<f:selectItem itemLabel="Feminino" itemValue="2" />
+	</p:selectOneRadio>
+</pm:field>
+<pm:field>
+	<p:outputLabel value="Data de Nascimento:" for="caddn"></p:outputLabel>
+	<p:inputText id="caddn" type="date" pattern="dd/mm/yyyy" required="true" value="#{cadPaciente.paciente.dtnascimentoStr}"></p:inputText>
+	
+</pm:field>
+
+<pm:field>
+	<p:outputLabel value="Plano de saude:" for="cadpsname"></p:outputLabel>
+	<p:inputText id="cadpsname" value="#{cadPaciente.paciente.planosaude}"></p:inputText>
+</pm:field>
+<pm:field>
+	<p:outputLabel value="Patologias:" for="cadpato"></p:outputLabel>
+	<p:selectManyCheckbox id="cadpato" layout="responsive" columns="1"
+		value="#{cadPaciente.selected_patologias}">
+		<f:selectItems value="#{cadPaciente.patologias}" var="patologia"
+			itemLabel="#{patologia.descricao}" itemValue="#{patologia}" />
+	</p:selectManyCheckbox>
+</pm:field>
+<pm:field>
+	<p:outputLabel value="Outro. Qual?" for="cadpatooutro"></p:outputLabel>
+	<p:inputText id="cadpatooutro" value="#{cadPaciente.outra_patologia}"></p:inputText>
+</pm:field>
+<pm:field>
+	<p:outputLabel value="Paciente principal?" for="cadprincipal"></p:outputLabel>
+	<p:selectBooleanCheckbox id="cadprincipal"
+		value="#{cadPaciente.principal}"></p:selectBooleanCheckbox>
+</pm:field>
+<pm:field>
+
+<p:button icon="ui-icon-forbidden" iconPos="right" outcome="pm:listpaciente" style="width:100%"/>
+	<p:commandButton style="width:100%" icon="ui-icon-check" update="@widgetVar(datapaciente)"
+		actionListener="#{cadPaciente.salvarPaciente}"></p:commandButton>
+</pm:field>
+</h:form>
+
+
+</html>

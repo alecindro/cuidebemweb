@@ -10,6 +10,12 @@
         <dependent-module archiveName="authsvc-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/authsvc/authsvc">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="emailsvc-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/emailsvc/emailsvc">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="themecuidebem-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/themecuidebem/themecuidebem">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="cuidebemweb"/>
         <property name="java-output-path" value="/cuidebemweb/target/classes"/>
     </wb-module>

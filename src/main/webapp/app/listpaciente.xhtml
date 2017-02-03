@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:p="http://primefaces.org/ui">
+
+<p:dataGrid value="#{listPaciente.pacientes}" var="pacienteView" rows="5" widgetVar="datapaciente" emptyMessage="Nenhum paciente cadastrado" columns="1">
+ <f:facet name="header">Pacientes</f:facet>
+  <p:panel toggleable="true" header="#{pacienteView.paciente.nome}" collapsed="true">  
+ <pm:field>
+ <p:outputLabel value="Foto:" for="pacfoto"></p:outputLabel>
+ <p:graphicImage id="pacfoto" value="#{pacienteView.photoPaciente}" stream="false" alt="Foto não cadastrada"/>
+ </pm:field>
+ <pm:field>
+ <p:outputLabel value="Cuidadores:" for="paccuidador"></p:outputLabel>
+
+ <p:dataTable emptyMessage="Nenhum Cuidador cadastrado" id="paccuidador" value="#{pacienteView.cuidadores}" var="cuidador" styleClass="ui-bar-f">
+ <p:column>
+ <h:outputText value="#{cuidador.nome}" />
+ </p:column>
+ <p:column>
+ <h:outputText value="#{cuidador.email}" />
+ </p:column>
+ </p:dataTable>
+</pm:field>
+<pm:field>
+	<p:outputLabel value="Principal:" for="pacprincipal"></p:outputLabel>
+	<p:inputSwitch  id="pacprincipal" 
+		value="#{pacienteView.principal}"></p:inputSwitch>
+</pm:field>
+ <h:form>
+<pm:field>
+<p:commandButton  icon="ui-icon-delete" value="Excluir" update="@widgetVar(datapaciente)"
+		actionListener="#{listPaciente.excluirPaciente(pacienteView.paciente)}" iconPos="right"></p:commandButton>
+			<p:commandButton icon="ui-icon-edit" value="Editar" actionListener="#{cadPaciente.editPaciente(pacienteView.paciente.idpaciente)}"
+		action="pm:cadpaciente" iconPos="right" update="@(#cadpaciente)">
+		
+		</p:commandButton>
+		
+		
+</pm:field>
+   </h:form>
+   </p:panel>
+</p:dataGrid>        
+</html>

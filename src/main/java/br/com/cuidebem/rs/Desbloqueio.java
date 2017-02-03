@@ -6,8 +6,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import br.com.cuidebem.control.exceptions.DaoException;
-import br.com.cuidebem.control.exceptions.PreexistingEntityException;
+import br.com.cuidebem.exceptions.DaoException;
+import br.com.cuidebem.exceptions.PreexistingEntityException;
 import br.com.cuidebem.service.UsersDao;
 
 @Path("/desbloqueio/{email}")

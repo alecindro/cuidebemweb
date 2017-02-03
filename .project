@@ -3,6 +3,7 @@
 	<name>cuidebemweb</name>
 	<comment></comment>
 	<projects>
+		<project>themecuidebem</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
