@@ -8,18 +8,18 @@
 
 
 <pm:field>
-<p:outputLabel value="Foto do Responsável:" for="cadphotoresp"></p:outputLabel>
-<p:graphicImage value="#{menu.userPhoto}" alt="Sua foto aqui" stream="false" id="cadphotoresp"></p:graphicImage>
+	<p:outputLabel value="Foto do Responsável:" for="cadphotoresp"></p:outputLabel>
+	<p:graphicImage value="#{cuideBemMB.userPhoto}" alt="Sua foto aqui"
+		stream="false" id="cadphotoresp"></p:graphicImage>
 </pm:field>
 
 <h:form enctype="multipart/form-data">
 	<pm:field>
-		<p:fileUpload value="#{menu.file}" mode="simple"
-			 />
+		<p:fileUpload value="#{cuideBemMB.file}" mode="simple" />
 	</pm:field>
 	<pm:field>
 		<p:commandButton value="Alterar" icon="ui-icon-arrow-u" ajax="false"
-			actionListener="#{menu.upload}" action="pm:updateresp" />
+			actionListener="#{cuideBemMB.uploadUserPhoto}" action="pm:updateresp" />
 	</pm:field>
 </h:form>
 
@@ -27,18 +27,19 @@
 	<pm:field>
 		<p:outputLabel value="Nome:" for="cadnomeresp"></p:outputLabel>
 		<p:inputText name="inputName" id="cadnomeresp" placeholder="Nome"
-			required="true" value="#{cadCuideBem.user.nome}"></p:inputText>
+			required="true" value="#{cuideBemMB.user.nome}"></p:inputText>
 	</pm:field>
 	<pm:field>
 		<p:outputLabel value="Email:" for="cademailresp"></p:outputLabel>
 		<p:inputText type="email" id="cademailresp" name="inputEmail"
-			readonly="true" placeholder="Email" required="true" styleClass="ui-state-disabled"
-			value="#{cadCuideBem.user.email}"></p:inputText>
+			readonly="true" placeholder="Email" required="true"
+			styleClass="ui-state-disabled" value="#{cuideBemMB.user.email}"></p:inputText>
 	</pm:field>
 
 
 	<pm:field>
-		<p:commandButton value="Salvar" action="#{cadCuideBem.atualizar}" />
+		<p:commandButton value="Salvar"
+			action="#{cuideBemMB.atualizarUsuario}" />
 	</pm:field>
 
 </h:form>
@@ -48,19 +49,19 @@
 		<p:outputLabel value="Nova Senha:" for="cadsenharesp"></p:outputLabel>
 		<p:inputText id="cadsenharesp" type="password"
 			placeholder="Nova Senha" required="true"
-			value="#{cadCuideBem.newPassword}"></p:inputText>
+			value="#{cuideBemMB.newPassword}"></p:inputText>
 	</pm:field>
 	<pm:field>
 		<p:outputLabel value="Repetir Nova Senha:" for="cadnvsenharesp"></p:outputLabel>
 		<p:inputText type="password" id="cadnvsenharesp"
 			placeholder="Nova Senha" required="true"
-			value="#{cadCuideBem.repeatNewPassword}"></p:inputText>
+			value="#{cuideBemMB.repeatNewPassword}"></p:inputText>
 	</pm:field>
 
 
 	<pm:field>
 		<p:commandButton value="Alterar Senha" resetValues="true"
-			actionListener="#{cadCuideBem.updatePassowrd}" update="@form" />
+			actionListener="#{cuideBemMB.updatePassowrd}" update="@form" />
 	</pm:field>
 
 </h:form>

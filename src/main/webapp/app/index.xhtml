@@ -9,16 +9,21 @@
 <f:view renderKitId="PRIMEFACES_MOBILE" />
 <h:head>
 	<title>Cuide Bem</title>
+	<style type="text/css">
+	.ui-inputswitch-off{ background-color:#c1392b;background: #c1392b}
+	.ui-stack {text-align: center;}
+	</style>
 	</h:head>
 <h:body>
-<p:growl showDetail="true" autoUpdate="true"></p:growl>
+<p:growl showDetail="true" autoUpdate="true" id="growlMessage"></p:growl>
 <pm:page id="main">
 
-<ui:include src="/app/header.xhtml" />
-<pm:content>
-<div style="text-align: center">
+<ui:include src="/app/header.xhtml">
+<ui:param name="headertext" value="Cuide Bem App" />
+</ui:include>
+<pm:content  style="text-align: center">
+
 <p:graphicImage value="/img/logo.png"/>
-</div>
  </pm:content>
 
 <ui:include src="/app/footer.xhtml" />
@@ -28,7 +33,9 @@
 
 
 <pm:page id="updateresp" lazy="true">
-<ui:include src="/app/header.xhtml" />
+<ui:include src="/app/header.xhtml">
+<ui:param name="headertext" value="Responsável" />
+</ui:include>
 <pm:content>
 <ui:include src="/app/cadresponsavel.xhtml"/>
 </pm:content>
@@ -38,7 +45,9 @@
 
 <pm:page id="listpaciente" lazy="true" >
 
-<ui:include src="/app/header.xhtml" />
+<ui:include src="/app/header.xhtml">
+<ui:param name="headertext" value="Pacientes" />
+</ui:include>
 <pm:content>
 
 <ui:include src="/app/listpaciente.xhtml"/>
@@ -52,9 +61,58 @@
 </pm:page>
 
 <pm:page id="cadpaciente" lazy="true">
-<ui:include src="/app/header.xhtml" />
+<ui:include src="/app/header.xhtml">
+<ui:param name="headertext" value="Paciente" />
+</ui:include>
 <pm:content>
 <ui:include src="/app/cadpaciente.xhtml"/>
+</pm:content>
+<ui:include src="/app/footer.xhtml" />
+
+</pm:page>
+
+<pm:page id="cadrotina" lazy="true">
+<ui:include src="/app/header.xhtml">
+<ui:param name="headertext" value="Rotinas" />
+</ui:include>
+<pm:content>
+<ui:include src="/app/rotinas.xhtml"/>
+</pm:content>
+<ui:include src="/app/footer.xhtml" />
+
+</pm:page>
+<!-- 
+<pm:page id="convcuidador" lazy="true">
+<ui:include src="/app/header.xhtml">
+<ui:param name="headertext" value="Adicionar Cuidador" />
+</ui:include>
+<pm:content>
+<ui:include src="/app/addCuidador.xhtml"/>
+</pm:content>
+<ui:include src="/app/footer.xhtml" />
+
+</pm:page>
+ -->
+<pm:page id="rotinas2" lazy="true">
+<ui:include src="/app/header.xhtml">
+<ui:param name="headertext" value="Rotinas 2" />
+</ui:include>
+<pm:content>
+<ui:include src="/app/rotinas2.xhtml"/>
+</pm:content>
+
+<pm:footer>
+
+	</pm:footer>
+
+</pm:page>
+
+<pm:page id="sinaisvitais" lazy="true">
+<ui:include src="/app/header.xhtml">
+<ui:param name="headertext" value="Sinais Vitais" />
+</ui:include>
+<pm:content>
+<ui:include src="/app/sinaisvitais.xhtml"/>
 </pm:content>
 <ui:include src="/app/footer.xhtml" />
 

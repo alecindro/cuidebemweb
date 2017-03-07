@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pm="http://primefaces.org/mobile">
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+<h:head>
+	<title>Cuide Bem</title>
+	<style type="text/css">
+.ui-inputswitch-off {
+	background-color: #c1392b;
+	background: #c1392b
+}
+</style>
+</h:head>
+<h:body id="bodyCuid">
+	<p:growl showDetail="true" autoUpdate="true"></p:growl>
+	<pm:page id="main">
+
+		<ui:include src="/app/cuidador/header.xhtml">
+			<ui:param name="headertext" value="Cuide Bem App" />
+		</ui:include>
+		<pm:content style="text-align: center" id="maincontent">
+	<pm:field>
+				<p:panel id="maincheckin" rendered="#{cuidador.check}"
+				header="CheckIN">
+				<h:outputText
+					value="O paciente #{cuidador.paciente.nome} está sendo atendido no momento." />
+				<p:commandButton value="checkOUT" action="#{cuidador.checkout}"
+					update="@(#main)"></p:commandButton>
+			</p:panel>
+					<p:panel  rendered="#{!cuidador.check}"
+				header="CheckIN">
+				<h:outputText
+					value="Favor realizar o checkIN." />
+					</p:panel>
+	</pm:field>
+
+		</pm:content>
+
+		<ui:include src="/app/cuidador/footer.xhtml" />
+
+	</pm:page>
+	<pm:page id="convites">
+	<ui:include src="/app/cuidador/header.xhtml">
+			<ui:param name="headertext" value="Convites" />
+		</ui:include>
+	<pm:content>
+	<pm:field>
+	<p:dataList value="#{cuidador.convites}" var="convite">
+	<f:facet name="header">Pacientes</f:facet>
+				<p:commandButton value="#{convite.idpaciente.nome}"
+					action="#{cuidador.aceitaConvite(convite)}"></p:commandButton>
+			</p:dataList>
+			</pm:field>
+			</pm:content>
+	</pm:page>
+	
+	<pm:page id="checkin">
+	<ui:include src="/app/cuidador/header.xhtml">
+			<ui:param name="headertext" value="CheckIn" />
+		</ui:include>
+	<pm:content>
+	
+		<pm:field>
+				<p:dataTable value="#{cuidador.pacientes}" var="paciente"
+					emptyMessage="Nenhum paciente cadastrado">
+					<p:column headerText="Paciente">
+						<h:outputText value="#{paciente.nome}" />
+					</p:column>
+					<p:column>
+					<h:form>
+						<p:commandButton value="CheckIN"
+							actionListener="#{cuidador.checkin(paciente)}" action="pm:main" update="@(#main)"></p:commandButton>
+							</h:form>
+					</p:column>
+				</p:dataTable>
+			</pm:field>
+			</pm:content>
+	</pm:page>	
+	<ui:include src="/app/cuidador/menu.xhtml" />
+
+
+
+</h:body>
+</html>
+

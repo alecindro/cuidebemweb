@@ -1,0 +1,38 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+<title>Listas com jQuery Mobile</title>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+<div data-role="page" id="main">
+<div data-role="header"><h1>Trabalhando com dialogos</h1></div>
+   <div data-role="content">
+Pressiona o botao para abrir uma caixa de dialogo
+    <a href="#dialogo" data-role="button" data-inline="true" data-rel="dialog" data-theme="b">Abrir dialogo</a></br>
+    Pressiona o botao para abrir uma caixa de dialogo com cores configuradas
+    <a href="#dialogo2" data-role="button" data-inline="true" data-rel="dialog" data-theme="c">Abrir dialogo configurado</a>
+   </div>
+   <div data-role="footer"><h3>Caixas de dialogos</h3></div>
+</div>
+
+<div data-role="page" id="dialogo">
+<div data-role="header" ><h1>dialogo de exemplo</h1></div>
+   <div data-role="content">
+Este e um quadro de dialogo simples que esta dentro do mesmo HTML do link
+    <a href="#" data-role="button" data-rel="back">Aceitar</a>
+   </div>
+   </div>
+   
+   <div data-role="page"id="dialogo2">
+<div data-role="header" data-theme="b"><h1>dialogo com cores configuradas</h1></div>
+   <div data-role="content" data-theme="a">
+Este e um quadro de dialogo configurado que esta dentro do mesmo HTML do link
+    <a href="#" data-role="button" data-theme="e" data-rel="back">Aceitar</a>
+   </div>
+
+</body>
+</html>

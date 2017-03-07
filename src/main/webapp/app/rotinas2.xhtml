@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:p="http://primefaces.org/ui">
+	<pm:field>
+	<p:dataList emptyMessage="Nenhuma rotina cadastrada"></p:dataList>
+	</pm:field>
+
+ <pm:field>
+             
+ 	<p:commandButton type="button" styleClass="ui-btn-inline" icon="ui-icon-plus" onclick="PF('dlg1').show();" style="float:right"></p:commandButton>
+
+</pm:field>
+		<p:dialog header="Header" widgetVar="dlg1"  showEffect="pop" closable="false" closeOnEscape="true" showHeader="false">
+   <p:commandButton type="button"  icon="ui-icon-back" value="Sinais Vitais"></p:commandButton>
+   <p:commandButton type="button"  icon="ui-icon-back" value="Nutrição"></p:commandButton>
+   <p:commandButton type="button"  icon="ui-icon-back" value="Bem Estar"></p:commandButton>
+   <p:commandButton type="button"  icon="ui-icon-back" value="Eliminações"></p:commandButton>
+   <p:commandButton type="button"  icon="ui-icon-back" value="Higiene"></p:commandButton>
+   <p:commandButton type="button"  icon="ui-icon-back" value="Respiratório"></p:commandButton>
+   <p:commandButton type="button"  icon="ui-icon-back" value="Sinais Vitais"></p:commandButton>
+   <p:commandButton type="button"  icon="ui-icon-back" value="Sinais Vitais"></p:commandButton>
+	<p:commandButton type="button"  icon="ui-icon-back" onclick="PF('dlg1').hide();" value="Doenças"></p:commandButton>
+	<p:commandButton type="button" icon="ui-icon-back" onclick="PF('dlg1').hide();"></p:commandButton>
+
+</p:dialog>
+		
+	
+</html>

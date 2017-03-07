@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:accordionPanel>
+	
+	<p:tab title="Cuidadores Cadastrados">
+		<pm:field>
+		<p:dataTable emptyMessage="Nenhum cuidador cadastrado" value="#{cadcuidador.cuidadores}" var="cuidador"> 
+		<p:column headerText="Email">
+		<h:outputText value="#{cuidador.email}" />
+		</p:column>
+		<p:column headerText="Nome">
+		<h:outputText value="#{cuidador.nome}" /></p:column>
+		<p:column headerText="Paciente">
+		<h:outputText value="#{cuidador.}" /></p:column>
+		</p:dataTable>
+	</pm:field>
+	</p:tab>
+	<p:tab title="Encontre um Cuidador">
+	<pm:field>
+	<p:outputLabel value="Email:" for="pesqCuidEmail"></p:outputLabel>
+	<p:inputText type="email" id="pesqCuidEmail"></p:inputText>
+	</pm:field>
+		<pm:field>
+	<p:outputLabel value="Nome:" for="convRespNome"></p:outputLabel>
+	<p:inputText id="convRespNome"></p:inputText>
+	</pm:field>
+		<pm:field>
+		<p:commandButton value="pesquisar"></p:commandButton>
+	</pm:field>
+		<pm:field>
+		<p:dataTable emptyMessage="Nenhum cuidador encontrado">
+		<p:column headerText="Email">xpto@xpto.com</p:column>
+		<p:column headerText="Nome">xpto cuida</p:column>
+		<p:column headerText="Localização">endereço do xpto</p:column>
+		</p:dataTable>
+	</pm:field>
+	</p:tab>
+	<p:tab title="Convide um cuidador">
+	<pm:field>
+		<p:outputLabel value="Email:" for="convCuidEmail"></p:outputLabel>
+	<p:inputText type="email" id="convCuidEmail"></p:inputText>
+	</pm:field>
+	<pm:field>
+	<p:commandButton value="Convidar"></p:commandButton>
+	</pm:field>
+	</p:tab>
+	</p:accordionPanel>
+</html>

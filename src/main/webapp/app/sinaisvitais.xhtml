@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<pm:field>
+			<p:selectOneMenu>
+				<f:selectItem itemValue="" itemLabel="Pressão Arterial" />
+				<f:selectItem itemValue="" itemLabel="Frequência Cardíaca (pulso)" />
+				<f:selectItem itemValue="" itemLabel="Temperatura Corporal" />
+				<f:selectItem itemValue="" itemLabel="Frequência Respiratória" />
+				<f:selectItem itemValue="" itemLabel="Saturação de Oxigênio" />
+				<f:selectItem itemValue="" itemLabel="Controle de Glicemia" />
+			</p:selectOneMenu>
+		</pm:field>
+		<pm:field>
+			<p:outputLabel value="Monitorar:" />
+					 <p:selectOneButton value="false" >
+            <f:selectItem itemLabel="Sim" itemValue="true" />
+            <f:selectItem itemLabel="Não" itemValue="false" />
+        </p:selectOneButton>
+		</pm:field>
+		<pm:field>
+
+			<p:outputLabel value="Receber Notificação:" />
+					 <p:selectOneButton value="false" >
+            <f:selectItem itemLabel="Sim" itemValue="true" />
+            <f:selectItem itemLabel="Não" itemValue="false" />
+        </p:selectOneButton>
+		</pm:field>
+
+		<pm:field>
+			<label for="rothour1">Hora:</label>
+			<input id="rothour1" type="range" min="0" max="23" value="0"
+				class="ui-bar-f"></input>
+			<br />
+			<label for="rotmin1">Minuto:</label>
+			<input id="rotmin1" type="range" min="0" max="59" value="0"
+				class="ui-bar-f"></input>
+		</pm:field>
+		
+		<p:button icon="ui-icon-back" outcome="pm:rotinas2?transition=pop"></p:button>
+		
+		<p:button icon="ui-icon-check" outcome="pm:rotinas2?transition=pop"></p:button>
+</html>
