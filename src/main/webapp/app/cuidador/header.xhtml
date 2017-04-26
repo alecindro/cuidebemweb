@@ -13,8 +13,10 @@
  
   <div class="ui-btn-right" data-role="controlgroup" data-type="horizontal">
   <p:button outcome="pm:checkin" icon="ui-icon-check" value="CheckIn" rendered="#{!cuidador.check}"></p:button>
-  <p:commandButton icon="ui-icon-check" value="CheckOut" rendered="#{cuidador.check}" action="#{cuidador.checkout}" update="@(#main)"></p:commandButton>
-  
+
+  <p:commandButton icon="ui-icon-check" value="CheckOut" 
+							actionListener="#{cuidador.checkout}" action="pm:main" update="@(#main),@(#convites),@(#checkin)" rendered="#{cuidador.check}"></p:commandButton>
+							
    <p:button icon="ui-icon-user" value="#{cuidador.convites.size().toString()}" outcome="pm:convites" disabled="#{cuidador.convites.size()==0}"></p:button>
      <a href="#" data-role="button" data-icon="bars" onmousedown="PF('pnlbasic').show();" style="height: 12.5px"></a>
  

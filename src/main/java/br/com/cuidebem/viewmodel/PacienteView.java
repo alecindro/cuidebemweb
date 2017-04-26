@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -32,6 +34,9 @@ public class PacienteView implements Serializable {
 	private String outra_patologia;
 
 	public Paciente getPaciente() {
+		if(paciente == null){
+			paciente = new Paciente();
+		}
 		return paciente;
 	}
 
@@ -59,15 +64,15 @@ public class PacienteView implements Serializable {
 		return foto;
 	}
 
-	public void setFoto(byte[] foto) {
-		if (foto != null) {
-			ByteArrayInputStream bi = new ByteArrayInputStream(foto);
-			photoPaciente = new DefaultStreamedContent(bi);
-		}
+	public void setFoto(byte[] foto) {	
 		this.foto = foto;
 	}
 
 	public StreamedContent getPhotoPaciente() {
+		if (foto != null) {
+			ByteArrayInputStream bi = new ByteArrayInputStream(foto);
+			photoPaciente = new DefaultStreamedContent(bi);
+		}
 		return photoPaciente;
 	}
 

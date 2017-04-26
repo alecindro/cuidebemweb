@@ -37,7 +37,7 @@
 					<form class="form-horizontal" method="post">
 						<div class="form-group">
 							<input type="email" class="form-control fontecel"
-								name="user" placeholder="Usuário" required="true" />
+								name="user" placeholder="e-mail" required="true" />
 						</div>
 						<div class="form-group">
 							<input type="password" class="form-control fontecel" name="pass"

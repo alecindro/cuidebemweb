@@ -1,5 +1,9 @@
 package br.com.cuidebem;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,7 +46,29 @@ public class Util {
 		return null;
 	}
 	
+	
+	public static String saveLocalPhoto(String nome, Integer id, String type, byte[] photo) throws Exception{
+		String dir = java.lang.System.getProperty("jboss.home.dir")+"/fotos";
+		String path = dir+"/"+nome+"_"+id+"."+type;
+		OutputStream out = null;
+		try {
+		    out = new BufferedOutputStream(new FileOutputStream(path));
+		    out.write(photo);
+		    return path;
+		} finally {
+		    if (out != null)
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+	}
 	public static boolean validateEmail(String email){
 		return patternEmail.matcher(email).matches();
 	}
+	
+	
+	
+
 }

@@ -23,7 +23,7 @@
 </ui:include>
 <pm:content  style="text-align: center">
 
-<p:graphicImage value="/img/logo.png"/>
+<ui:include src="/app/eventos.xhtml" />
  </pm:content>
 
 <ui:include src="/app/footer.xhtml" />
@@ -55,7 +55,7 @@
 <pm:footer>
 	
 <h:form>
-<p:commandButton icon="ui-icon-plus" iconPos="right" action="pm:cadpaciente" ajax="false" style="width:100%"></p:commandButton>
+<p:commandButton value="Adicionar" icon="ui-icon-plus" iconPos="right" action="pm:cadpaciente" actionListener="#{cuideBemMB.addPaciente}"  update="@(#cadpaciente)" style="width:100%"></p:commandButton>
 </h:form>
 </pm:footer>
 </pm:page>

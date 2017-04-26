@@ -6,6 +6,7 @@ public class PagesHTML {
 			"<html>"+
 			"<head>"+
 			"<meta charset='UTF-8'>"+
+			"<meta http-equiv='refresh' content=\"1;URL='http://www.cuidebemapp.com/'\" />"+
 			"<style>"+
 			".ui-button {"+
 			"display: inline-block;"+

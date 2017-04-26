@@ -5,16 +5,15 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:pm="http://primefaces.org/mobile"
 	xmlns:p="http://primefaces.org/ui">
-
+<p:outputPanel autoUpdate="true">
 <p:dataGrid value="#{cuideBemMB.pacientes}" var="pacienteView" rows="5" widgetVar="datapaciente" emptyMessage="Nenhum paciente cadastrado" columns="1">
 
   <p:panel toggleable="true" header="#{pacienteView.paciente.nome}" collapsed="true">  
  <pm:field>
  <p:outputLabel value="Foto:" for="pacfoto"></p:outputLabel>
- <p:graphicImage id="pacfoto" value="#{pacienteView.photoPaciente}" stream="false" alt="Foto não cadastrada"/>
+ <p:graphicImage id="pacfoto" value="#{pacienteView.photoPaciente}" stream="false" alt="Foto não cadastrada" cache="true"/>
  </pm:field>
- 
- <pm:field>
+  <pm:field>
  <p:outputLabel value="Cuidadores:" for="paccuidador"></p:outputLabel>
  <p:dataTable emptyMessage="Nenhum Cuidador cadastrado" id="paccuidador" value="#{pacienteView.cuidadores}" var="cuidador" styleClass="ui-bar-f">
  <p:column headerText="Nome">
@@ -26,7 +25,7 @@
   <p:column>
    <h:form>
 <p:commandButton  icon="ui-icon-delete" value="Excluir" 
-		iconPos="right"></p:commandButton>
+		iconPos="right" action="#{cuideBemMB.excluirCuidador(cuidador,pacienteView)}"></p:commandButton>
  </h:form>
  </p:column>
  
@@ -46,9 +45,7 @@
 
 <pm:field>
   <h:form>
-	<p:commandButton icon="ui-icon-grid" value="Agenda" actionListener="#{cuideBemMB.editPacienteView(pacienteView)}"
-		action="pm:rotinas2" iconPos="right" update="@(#rotinas2)">
-		</p:commandButton>
+	
 <p:commandButton  icon="ui-icon-delete" value="Excluir" update="@widgetVar(datapaciente)"
 		actionListener="#{cuideBemMB.excluirPaciente(pacienteView)}" iconPos="right"></p:commandButton>
 			<p:commandButton icon="ui-icon-edit" value="Editar" actionListener="#{cuideBemMB.editPaciente(pacienteView)}"
@@ -62,6 +59,7 @@
    </p:panel>
 </p:dataGrid>
 
+</p:outputPanel>
 <p:dialog header="Convidar Cuidador" widgetVar="dlgCuidador" showEffect="pop">
 
 <h:form >
@@ -72,7 +70,7 @@
   <p:keyFilter mask="email"></p:keyFilter>
     </p:inputText>
 </pm:field>
- <p:commandButton value="Convidar"  actionListener="#{cuideBemMB.convidarCuidador}" update="convitecuid">
+ <p:commandButton value="Convidar"  actionListener="#{cuideBemMB.convidarCuidador}" action="pm:listpaciente" update="convitecuid">
  <f:ajax onevent="PF('dlgCuidador').hide();" ></f:ajax>
  </p:commandButton>
  </h:form>   

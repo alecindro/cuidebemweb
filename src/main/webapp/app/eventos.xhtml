@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:p="http://primefaces.org/ui">
+<p:outputPanel autoUpdate="true"
+	rendered="#{cuideBemMB.idpacienteEvento == null}">
+	<p:graphicImage value="/img/logo.png" />
+</p:outputPanel>
+<p:outputPanel autoUpdate="true"
+	rendered="#{cuideBemMB.idpacienteEvento != null}">
+	<h:form>
+		<pm:field>
+			<p:outputLabel value="Paciente:" for="pacienteEvento"></p:outputLabel>
+			<p:selectOneMenu value="#{cuideBemMB.idpacienteEvento}"
+				id="pacienteEvento">
+				<p:ajax listener="#{cuideBemMB.updateEventos}" />
+				<f:selectItems value="#{cuideBemMB.pacientes}" var="pacienteView"
+					itemLabel="#{pacienteView.paciente.nome}"
+					itemValue="#{pacienteView.paciente.idpaciente}" />
+			</p:selectOneMenu>
+		</pm:field>
+	</h:form>
+	<pm:field>
+		<p:panelGrid columns="3">
+			<p:commandButton action="#{cuideBemMB.subDate}"
+				icon="ui-icon-arrow-l" style="float:right"></p:commandButton>
+			<p:button value="#{cuideBemMB.day}" href="#">
+			</p:button>
+			<p:commandButton action="#{cuideBemMB.addDate}"
+				icon="ui-icon-arrow-r" disabled="#{cuideBemMB.disablePlusdate}"></p:commandButton>
+		</p:panelGrid>
+	</pm:field>
+	<pm:field>
+		<p:dataTable value="#{cuideBemMB.eventos}" var="evento"
+			emptyMessage="Não existe eventos na data de hoje">
+			<p:column headerText="Hora" style="#{evento.deletedeColor}">
+				<h:outputText value="#{evento.hour}" />
+			</p:column>
+			<p:column headerText="Evento" style="#{evento.deletedeColor}">
+				<h:inputTextarea readonly="true"
+					value="#{evento.grupoevento} - #{evento.subgrupoevento} - #{evento.respeventos} - #{evento.obsevento}" />
+			</p:column>
+			<p:column headerText="Cuidador" style="#{evento.deletedeColor}">
+				<h:outputText value="#{evento.idcuidador.nome}" />
+			</p:column>
+		</p:dataTable>
+	</pm:field>
+</p:outputPanel>
+</html>

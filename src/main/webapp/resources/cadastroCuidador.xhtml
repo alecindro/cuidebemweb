@@ -16,7 +16,7 @@
 <f:viewParam name="emailCuidador" value="#{cadcuidador.emailCuidador}"> </f:viewParam>
 </f:metadata>
 <h:body>
-<p:messages autoUpdate="true" showDetail="true"></p:messages>
+<p:growl autoUpdate="true" showDetail="true"></p:growl>
 	<div class="container-fluid">
 	<div class="row">
 				<div class="col-sm-2 col-md-4"></div>
@@ -32,6 +32,7 @@
 					<h:form style="text-align: center;" class="form-horizontal"
 						name="cadForm">
 						<h:inputHidden value="#{cadcuidador.idconvite}" />
+						<h:inputHidden value="#{cadcuidador.emailCuidador}" />
 						<div class="form-group">
 							<p:inputText class="form-control" name="inputName"
 								placeholder="Nome" required="true" value="#{cadcuidador.user.nome}"></p:inputText>
@@ -56,13 +57,7 @@
 							<p:inputText type="password" class="form-control"
 								placeholder="Repita Senha" required="true" value="#{cadcuidador.confirmeSenha}" />
 						</div>
-							<div class="form-group">
-							<p:selectOneRadio widgetVar="select" layout="responsive" required="true" plain="true" columns="1" style="text-align:left" value="2" disabled="true">
-							<f:selectItem itemLabel="Responsável" itemValue="1"/>
-							<f:selectItem  itemLabel="Cuidador" itemValue="2"/>
-							<f:selectItem  itemLabel="Ambos" itemValue="3"/>
-							</p:selectOneRadio>
-							</div>
+							
 						<div class="form-group">
 							<h:commandButton class="btn btn-success form-control" value="Próximo"  action="#{cadcuidador.cadastrar}"/>
 						</div>

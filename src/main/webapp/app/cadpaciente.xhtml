@@ -5,12 +5,16 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:pm="http://primefaces.org/mobile"
 	xmlns:p="http://primefaces.org/ui">
-<pm:field>
+	<p:outputPanel autoUpdate="true">
+	
+<pm:field rendered="#{cuideBemMB.paciente.paciente.idpaciente != null}">
 <p:outputLabel value="Foto:" for="fotopac"></p:outputLabel>
 <p:graphicImage id="fotopac" value="#{cuideBemMB.paciente.photoPaciente}" alt="Foto do paciente não cadastrada" stream="false" cache="true">
 </p:graphicImage>
 </pm:field>
-<h:form enctype="multipart/form-data">
+
+</p:outputPanel>
+<h:form enctype="multipart/form-data" rendered="#{cuideBemMB.paciente.paciente.idpaciente != null}">
 <pm:field>
 	<p:outputLabel value="Cadastrar foto:" for="cadfotopac"></p:outputLabel>
 		<p:fileUpload value="#{cuideBemMB.file}" mode="simple"
@@ -22,7 +26,7 @@
 </pm:field>
 </h:form>
 <h:form>
-<h:inputHidden value="#{cuideBemMB.paciente.paciente.idpaciente}" />
+<h:inputHidden value="#{cuideBemMB.paciente.paciente.idpaciente}" rendered="#{cuideBemMB.paciente.paciente.idpaciente != null}"/>
 <pm:field>
 	<p:outputLabel value="Nome:" for="cadnome"></p:outputLabel>
 	<p:inputText class="form-control" id="cadnome" name="inputName"
@@ -70,9 +74,9 @@
 </pm:field>
 <pm:field>
 
-<p:button icon="ui-icon-forbidden" iconPos="right" outcome="pm:listpaciente" style="width:100%"/>
-	<p:commandButton style="width:100%" icon="ui-icon-check" update="@widgetVar(datapaciente)"
-		actionListener="#{cuideBemMB.salvarPaciente}"></p:commandButton>
+<p:button icon="ui-icon-forbidden" iconPos="right" outcome="pm:listpaciente" style="width:100%" value="Voltar"/>
+	<p:commandButton style="width:100%" iconPos="right" icon="ui-icon-check" update="@widgetVar(datapaciente)" value="Salvar"
+		action="#{cuideBemMB.salvarPaciente}"></p:commandButton>
 </pm:field>
 </h:form>
 

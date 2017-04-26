@@ -56,10 +56,11 @@ public class CadCuidador {
 			return null;
 		}
 		try {
+			user.setTypeuser(TypeUser.CUIDADOR.getOrder());
 			saveUser();
 			return "/resources/boasvindas.xhtml";
 		} catch (DaoException e) {
-			e.printStackTrace();
+			Util.addErrorMessage(e.getMessage());
 		}
 		return "";
 	}

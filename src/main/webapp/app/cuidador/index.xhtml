@@ -19,70 +19,612 @@
 <h:body id="bodyCuid">
 	<p:growl showDetail="true" autoUpdate="true"></p:growl>
 	<pm:page id="main">
-
-		<ui:include src="/app/cuidador/header.xhtml">
-			<ui:param name="headertext" value="Cuide Bem App" />
-		</ui:include>
+		<h:form>
+			<ui:include src="/app/cuidador/header.xhtml">
+				<ui:param name="headertext" value="Cuide Bem App" />
+			</ui:include>
+		</h:form>
 		<pm:content style="text-align: center" id="maincontent">
-	<pm:field>
-				<p:panel id="maincheckin" rendered="#{cuidador.check}"
-				header="CheckIN">
-				<h:outputText
-					value="O paciente #{cuidador.paciente.nome} está sendo atendido no momento." />
-				<p:commandButton value="checkOUT" action="#{cuidador.checkout}"
-					update="@(#main)"></p:commandButton>
-			</p:panel>
-					<p:panel  rendered="#{!cuidador.check}"
-				header="CheckIN">
-				<h:outputText
-					value="Favor realizar o checkIN." />
-					</p:panel>
-	</pm:field>
+			<p:outputPanel autoUpdate="true">
+				<pm:field rendered="#{!cuidador.check}">
+					<h:outputText value="Favor realizar o checkIN." />
+
+				</pm:field>
+				<h:form prependId="false" id="addevento">
+					<pm:field>
+						<h:outputText rendered="#{cuidador.check}"
+							value="Atendendo #{cuidador.paciente.nome}"></h:outputText>
+					</pm:field>
+					<pm:field rendered="#{cuidador.check}">
+						<h:outputText value="Adicionar Eventos" />
+					</pm:field>
+
+
+					<pm:field rendered="#{cuidador.check}">
+						<p:outputLabel value="Evento:" for="tipoevento"></p:outputLabel>
+						<p:selectOneMenu id="tipoevento"
+							value="#{cuidador.rotinaSelected}">
+							<p:ajax />
+							<f:selectItem itemLabel="Selecione um Evento" />
+							<f:selectItems value="#{cuidador.rotinas}" var="rotina"
+								itemValue="#{rotina}" itemDescription="#{rotina.descricao}"
+								itemLabel="#{rotina.descricao}" />
+						</p:selectOneMenu>
+					</pm:field>
+					<!-- inicio sinal vital -->
+					<pm:field
+						rendered="#{cuidador.rotinaSelected.name() == 'SINALVITAL'}">
+						<p:outputLabel value="Rotina:" for="tiporotina"></p:outputLabel>
+
+						<p:selectOneMenu id="tiporotina" value="#{cuidador.sinaisVitais}">
+							<p:ajax />
+							<f:selectItem itemLabel="Selecione uma Rotina" />
+							<f:selectItems value="#{cuidador.rotinaSelected.tipo}" var="item"
+								itemValue="#{item}" itemLabel="#{item.descricao}" />
+						</p:selectOneMenu>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.sinaisVitais.name() == 'PRESSAOARTERIAL' and cuidador.rotinaSelected.name() == 'SINALVITAL'}">
+						<p:panelGrid columns="4"
+							style="width:70%;margin-left:30%;margin-right:30%;">
+
+							<p:inputText style="float:right" type="NUMBER"
+								value="#{cuidador.pressaoInitial}"></p:inputText>
+
+							<p:outputLabel value="x" style="margin-top:10px" />
+							<p:inputText style="float:left" type="NUMBER"
+								value="#{cuidador.pressaoFinal}"></p:inputText>
+
+							<p:outputLabel value="mm Hg" style="float:left;margin-top:10px" />
+						</p:panelGrid>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.sinaisVitais.name() == 'FREQUENCIACARDIACA' and cuidador.rotinaSelected.name() == 'SINALVITAL'}">
+						<p:outputLabel value=" " />
+						<h:panelGrid columns="2">
+
+							<p:inputText id="fc" type="NUMBER"
+								value="#{cuidador.evento.respeventos}"></p:inputText>
+							<p:outputLabel value="bpm" style="float:left;margin-top:10px"
+								for="fc" />
+						</h:panelGrid>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.sinaisVitais.name() == 'TEMPERATURA' and cuidador.rotinaSelected.name() == 'SINALVITAL'}">
+						<p:outputLabel value=" " />
+						<h:panelGrid columns="2">
+
+							<p:inputText id="temp" type="NUMBER"
+								value="#{cuidador.evento.respeventos}"></p:inputText>
+							<p:outputLabel value="ºC" style="float:left;margin-top:10px"
+								for="temp" />
+						</h:panelGrid>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.sinaisVitais.name() == 'FREQUENCIARESPIRATORIA' and cuidador.rotinaSelected.name() == 'SINALVITAL'}">
+						<p:outputLabel value=" " />
+						<h:panelGrid columns="2">
+
+							<p:inputText id="fqp" type="NUMBER"
+								value="#{cuidador.evento.respeventos}"></p:inputText>
+							<p:outputLabel value="vezes/min"
+								style="float:left;margin-top:10px" for="fqp" />
+						</h:panelGrid>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.sinaisVitais.name() == 'SATURACAOOXIGENIO' and cuidador.rotinaSelected.name() == 'SINALVITAL'}">
+						<p:outputLabel value=" " />
+						<h:panelGrid columns="2">
+
+							<p:inputText id="satox" type="NUMBER"
+								value="#{cuidador.evento.respeventos}"></p:inputText>
+							<p:outputLabel value="%" style="float:left;margin-top:10px"
+								for="satox" />
+						</h:panelGrid>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.sinaisVitais.name() == 'CONTROLEGLICEMIA' and cuidador.rotinaSelected.name() == 'SINALVITAL'}">
+						<p:outputLabel value=" " />
+						<h:panelGrid columns="2">
+
+							<p:inputText id="congl" type="NUMBER"
+								value="#{cuidador.evento.respeventos}"></p:inputText>
+							<p:outputLabel value="mmHg" style="float:left;margin-top:10px"
+								for="congl" />
+						</h:panelGrid>
+					</pm:field>
+					<pm:field
+						rendered="#{(cuidador.sinaisVitais.name() == 'CONTROLEGLICEMIA' or cuidador.sinaisVitais.name() == 'SATURACAOOXIGENIO' 
+						or cuidador.sinaisVitais.name() == 'FREQUENCIARESPIRATORIA' or cuidador.sinaisVitais.name() == 'TEMPERATURA'
+						or cuidador.sinaisVitais.name() == 'FREQUENCIACARDIACA' or cuidador.sinaisVitais.name() == 'PRESSAOARTERIAL') and cuidador.rotinaSelected.name() == 'SINALVITAL'}">
+						<p:outputLabel value="Obs:" for="obsSV"></p:outputLabel>
+						<p:inputTextarea maxlength="255" id="obsSV"
+							value="#{cuidador.evento.obsevento}"></p:inputTextarea>
+					</pm:field>
+					<!-- fim sinal vital -->
+					<!-- inicio Nutricao -->
+					<pm:field
+						rendered="#{cuidador.rotinaSelected.name() == 'NUTRICAO'}">
+						<p:outputLabel value="Rotina:" for="tiponut"></p:outputLabel>
+						<p:selectOneMenu id="tiponut" value="#{cuidador.nutricao}">
+							<p:ajax />
+							<f:selectItem itemLabel="Selecione uma Rotina" />
+							<f:selectItems value="#{cuidador.rotinaSelected.tipo}" var="item"
+								itemValue="#{item}" itemLabel="#{item.descricao}" />
+						</p:selectOneMenu>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.nutricao.name() == 'CAFE' and cuidador.rotinaSelected.name() == 'NUTRICAO'}">
+						<p:outputLabel value="Descrição:" for="opCAFE"></p:outputLabel>
+						<p:selectOneRadio id="opCAFE"
+							value="#{cuidador.evento.respeventos}">
+							<f:selectItems value="#{cuidador.nutricao.opcoes}" var="opcao"
+								itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.nutricao.name() == 'ALMOCO' and cuidador.rotinaSelected.name() == 'NUTRICAO'}">
+						<p:outputLabel value="Descrição:" for="opALMOCO"></p:outputLabel>
+						<p:selectOneRadio id="opALMOCO"
+							value="#{cuidador.evento.respeventos}">
+							<f:selectItems value="#{cuidador.nutricao.opcoes}" var="opcao"
+								itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.nutricao.name() == 'JANTAR' and cuidador.rotinaSelected.name() == 'NUTRICAO'}">
+						<p:outputLabel value="Descrição:" for="opJANTAR"></p:outputLabel>
+						<p:selectOneRadio id="opJANTAR"
+							value="#{cuidador.evento.respeventos}">
+							<f:selectItems value="#{cuidador.nutricao.opcoes}" var="opcao"
+								itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.nutricao.name() == 'CEIA' and cuidador.rotinaSelected.name() == 'NUTRICAO'}">
+						<p:outputLabel value="Descrição:" for="opCEIA"></p:outputLabel>
+						<p:selectOneRadio id="opCEIA"
+							value="#{cuidador.evento.respeventos}">
+							<f:selectItems value="#{cuidador.nutricao.opcoes}" var="opcao"
+								itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.nutricao.name() == 'LANCHE' and cuidador.rotinaSelected.name() == 'NUTRICAO'}">
+						<p:outputLabel value="Descrição:" for="opLANCHE"></p:outputLabel>
+						<p:selectOneRadio id="opLANCHE"
+							value="#{cuidador.evento.respeventos}">
+							<f:selectItems value="#{cuidador.nutricao.opcoes}" var="opcao"
+								itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.nutricao.name() == 'LIQUIDOS' and cuidador.rotinaSelected.name() == 'NUTRICAO'}">
+						<p:outputLabel value="Descrição:" for="opLIQ"></p:outputLabel>
+						<p:selectOneRadio id="opLIQ"
+							value="#{cuidador.evento.respeventos}">
+							<f:selectItems value="#{cuidador.nutricao.opcoes}" var="opcao"
+								itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{(cuidador.nutricao.name() == 'LIQUIDOS' or cuidador.nutricao.name() == 'LANCHE' 
+						or cuidador.nutricao.name() == 'CEIA' or cuidador.nutricao.name() == 'JANTAR'
+						or cuidador.nutricao.name() == 'ALMOCO' or cuidador.nutricao.name() == 'CAFE') and cuidador.rotinaSelected.name() == 'NUTRICAO'}">
+						<p:outputLabel value="Obs:" for="obsNut"></p:outputLabel>
+						<p:inputTextarea maxlength="255" id="obsNut"
+							value="#{cuidador.evento.obsevento}"></p:inputTextarea>
+					</pm:field>
+
+					<!-- fim sinal vital -->
+					<!-- INICIO RESPIRATORIO -->
+					<pm:field
+						rendered="#{cuidador.rotinaSelected.name() == 'RESPIRATORIO'}">
+						<p:outputLabel value="Rotina:" for="tiporesp"></p:outputLabel>
+
+						<p:selectOneMenu id="tiporesp" value="#{cuidador.respiratorio}">
+							<p:ajax />
+							<f:selectItem itemLabel="Selecione uma Rotina" />
+							<f:selectItems value="#{cuidador.rotinaSelected.tipo}" var="item"
+								itemValue="#{item}" itemLabel="#{item.descricao}" />
+						</p:selectOneMenu>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.respiratorio.name() == 'TRAQUEAL' and cuidador.rotinaSelected.name() == 'RESPIRATORIO'}">
+						<p:outputLabel value="Descrição:" for="opTRAQUEAL"></p:outputLabel>
+						<p:selectOneRadio value="#{cuidador.opcao}">
+							<f:selectItems id="opTRAQUEAL"
+								value="#{cuidador.respiratorio.opcoes}" var="opcao"
+								itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.respiratorio.name() == 'TRAQUEAL' and cuidador.rotinaSelected.name() == 'RESPIRATORIO'}">
+						<p:outputLabel value="Quantidade:" for="qtTRAQUEAL"></p:outputLabel>
+						<p:selectOneRadio id="qtTRAQUEAL" value="#{cuidador.qtidade}">
+							<f:selectItems value="#{cuidador.respiratorio.quantidade}"
+								var="opcao" itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.respiratorio.name() == 'TRAQUEAL' and cuidador.rotinaSelected.name() == 'RESPIRATORIO'}">
+						<p:outputLabel value="Quantidade:" for="aspecTRAQUEAL"></p:outputLabel>
+						<p:selectOneRadio id="aspecTRAQUEAL" value="#{cuidador.aspecto}">
+							<f:selectItems value="#{cuidador.respiratorio.aspecto}"
+								var="opcao" itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.respiratorio.name() == 'NEBULIZACAO' and cuidador.rotinaSelected.name() == 'RESPIRATORIO'}">
+						<p:outputLabel value="Descrição:" for="opNEBU"></p:outputLabel>
+						<p:selectOneRadio id="opNEBU" value="#{cuidador.opcao}">
+							<f:selectItems value="#{cuidador.respiratorio.opcoes}"
+								var="opcao" itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.respiratorio.name() == 'NEBULIZACAO' and cuidador.rotinaSelected.name() == 'RESPIRATORIO'}">
+						<p:outputLabel value="Quantidade:" for="qtNEBU"></p:outputLabel>
+						<p:selectOneRadio id="qtNEBU" value="#{cuidador.qtidade}">
+							<f:selectItems value="#{cuidador.respiratorio.quantidade}"
+								var="opcao" itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.respiratorio.name() == 'NEBULIZACAO' and cuidador.rotinaSelected.name() == 'RESPIRATORIO'}">
+						<p:outputLabel value="Quantidade:" for="aspecNEBU"></p:outputLabel>
+						<p:selectOneRadio id="aspecNEBU" value="#{cuidador.aspecto}">
+							<f:selectItems value="#{cuidador.respiratorio.aspecto}"
+								var="opcao" itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{(cuidador.respiratorio.name() == 'TRAQUEAL' or cuidador.respiratorio.name() == 'NEBULIZACAO' 
+						) and cuidador.rotinaSelected.name() == 'RESPIRATORIO'}">
+						<p:outputLabel value="Obs:" for="obsResp"></p:outputLabel>
+						<p:inputTextarea maxlength="255" id="obsResp"
+							value="#{cuidador.evento.obsevento}"></p:inputTextarea>
+					</pm:field>
+					<!-- FIM RESPIRATORIO -->
+					<!-- Inicio Medicacao -->
+					<pm:field
+						rendered="#{cuidador.rotinaSelected.name() == 'MEDICACAO'}">
+						<p:outputLabel value="Rotina:" for="tipomed"></p:outputLabel>
+
+						<p:selectOneMenu id="tipomed" value="#{cuidador.medicacao}">
+							<p:ajax />
+							<f:selectItem itemLabel="Selecione uma Rotina" />
+							<f:selectItems value="#{cuidador.rotinaSelected.tipo}" var="item"
+								itemValue="#{item}" itemLabel="#{item.descricao}" />
+						</p:selectOneMenu>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.medicacao.name() == 'MEDICAO' and cuidador.rotinaSelected.name() == 'MEDICACAO'}">
+						<p:outputLabel value="Descrição:" for="descMEDICAO"></p:outputLabel>
+						<p:inputTextarea id="descMEDICAO" maxlength="255"
+							value="#{cuidador.evento.respeventos}"></p:inputTextarea>
+					</pm:field>
+					<!-- Fim medicacao -->
+					<!-- Inicio interocorrencias -->
+					<pm:field
+						rendered="#{cuidador.rotinaSelected.name() == 'INTEROCORRENCIAS'}">
+						<p:outputLabel value="Rotina:" for="tipoInter"></p:outputLabel>
+
+						<p:selectOneMenu id="tipoInter"
+							value="#{cuidador.interOcorrencias}">
+							<p:ajax />
+							<f:selectItem itemLabel="Selecione uma Rotina" />
+							<f:selectItems value="#{cuidador.rotinaSelected.tipo}" var="item"
+								itemValue="#{item}" itemLabel="#{item.descricao}" />
+						</p:selectOneMenu>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.interOcorrencias.name() == 'INTEROCORRENCIAS' and cuidador.rotinaSelected.name() == 'INTEROCORRENCIAS'}">
+						<p:outputLabel value="Descrição:" for="descINTER"></p:outputLabel>
+						<p:inputTextarea id="descINTER"
+							value="#{cuidador.evento.respeventos}" maxlength="255"></p:inputTextarea>
+					</pm:field>
+					<!-- Fim interocorrencias -->
+					<!-- inicio da higiene -->
+					<pm:field rendered="#{cuidador.rotinaSelected.name() == 'HIGIENE'}">
+						<p:outputLabel value="Rotina:" for="tipoHIG"></p:outputLabel>
+						<p:selectOneMenu id="tipoHIG" value="#{cuidador.higiene}">
+							<p:ajax />
+							<f:selectItem itemLabel="Selecione uma Rotina" />
+							<f:selectItems value="#{cuidador.rotinaSelected.tipo}" var="item"
+								itemValue="#{item}" itemLabel="#{item.descricao}" />
+						</p:selectOneMenu>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.rotinaSelected.name() == 'HIGIENE' and (cuidador.higiene.name() == 'BANHO' or cuidador.higiene.name() == 'ORAL' )}">
+						<p:outputLabel for="opHIG" value="Observação:"></p:outputLabel>
+						<p:inputTextarea id="opHIG" value="#{cuidador.evento.respeventos}"
+							maxlength="255"></p:inputTextarea>
+					</pm:field>
+
+					<!-- fim da higiene -->
+					<!--  inicio das eliminacoes -->
+					<pm:field
+						rendered="#{cuidador.rotinaSelected.name() == 'ELIMINACOES'}">
+						<p:outputLabel value="Rotina:" for="tipoELIM"></p:outputLabel>
+
+						<p:selectOneMenu id="tipoELIM" value="#{cuidador.eliminacoes}">
+							<p:ajax />
+							<f:selectItem itemLabel="Selecione uma Rotina" />
+							<f:selectItems value="#{cuidador.rotinaSelected.tipo}" var="item"
+								itemValue="#{item}" itemLabel="#{item.descricao}" />
+						</p:selectOneMenu>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.eliminacoes.name() == 'URINA' and cuidador.rotinaSelected.name() == 'ELIMINACOES'}">
+						<p:outputLabel value="Quantidade:" for="qtELIM"></p:outputLabel>
+						<p:selectOneRadio id="qtELIM" value="#{cuidador.qtidade}">
+							<f:selectItems value="#{cuidador.eliminacoes.quantidade}"
+								var="opcao" itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.eliminacoes.name() == 'URINA' and cuidador.rotinaSelected.name() == 'ELIMINACOES'}">
+						<p:outputLabel value="Quantidade:" for="aspecELIM"></p:outputLabel>
+						<p:selectOneRadio id="aspecELIM" value="#{cuidador.aspecto}">
+							<f:selectItems value="#{cuidador.eliminacoes.aspecto}"
+								var="opcao" itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.eliminacoes.name() == 'FEZES' and cuidador.rotinaSelected.name() == 'ELIMINACOES'}">
+						<p:outputLabel value="Quantidade:" for="qtFEZES"></p:outputLabel>
+						<p:selectOneRadio id="qtFEZES" value="#{cuidador.qtidade}">
+							<f:selectItems value="#{cuidador.eliminacoes.quantidade}"
+								var="opcao" itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.eliminacoes.name() == 'FEZES' and cuidador.rotinaSelected.name() == 'ELIMINACOES'}">
+						<p:outputLabel value="Quantidade:" for="aspecFEZES"></p:outputLabel>
+						<p:selectOneRadio id="aspecFEZES" value="#{cuidador.aspecto}">
+							<f:selectItems value="#{cuidador.eliminacoes.aspecto}"
+								var="opcao" itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.eliminacoes.name() == 'VOMITO' and cuidador.rotinaSelected.name() == 'ELIMINACOES'}">
+						<p:outputLabel value="Quantidade:" for="qtVOM"></p:outputLabel>
+						<p:selectOneRadio id="qtVOM" value="#{cuidador.qtidade}">
+							<f:selectItems value="#{cuidador.eliminacoes.quantidade}"
+								var="opcao" itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.eliminacoes.name() == 'VOMITO' and cuidador.rotinaSelected.name() == 'ELIMINACOES'}">
+						<p:outputLabel value="Quantidade:" for="aspecVOM"></p:outputLabel>
+						<p:selectOneRadio id="aspecVOM" value="#{cuidador.aspecto}">
+							<f:selectItems value="#{cuidador.eliminacoes.aspecto}"
+								var="opcao" itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{(cuidador.eliminacoes.name() == 'VOMITO' or cuidador.eliminacoes.name() == 'FEZES' or cuidador.eliminacoes.name() == 'URINA' 
+						) and cuidador.rotinaSelected.name() == 'ELIMINACOES'}">
+						<p:outputLabel value="Obs:" for="obsElim"></p:outputLabel>
+						<p:inputTextarea maxlength="255" id="obsElim"
+							value="#{cuidador.evento.obsevento}"></p:inputTextarea>
+					</pm:field>
+
+					<!-- fim das eliminacoes -->
+					<!-- inicio da dor -->
+					<pm:field rendered="#{cuidador.rotinaSelected.name() == 'DOR'}">
+						<p:outputLabel value="Rotina:" for="tipoDOR"></p:outputLabel>
+
+						<p:selectOneMenu id="tipoDOR" value="#{cuidador.dor}">
+							<p:ajax />
+							<f:selectItem itemLabel="Selecione uma Rotina" />
+							<f:selectItems value="#{cuidador.rotinaSelected.tipo}" var="item"
+								itemValue="#{item}" itemLabel="#{item.descricao}" />
+						</p:selectOneMenu>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.dor.name() == 'DOR' and cuidador.rotinaSelected.name() == 'DOR'}">
+						<p:outputLabel value="Descrição:" for="descDOR"></p:outputLabel>
+						<p:inputTextarea id="descDOR" maxlength="255"
+							value="#{cuidador.evento.respeventos}"></p:inputTextarea>
+					</pm:field>
+
+					<!-- fim da dor -->
+					<!-- inicio da consulta -->
+					<pm:field
+						rendered="#{cuidador.rotinaSelected.name() == 'CONSULTAS'}">
+						<p:outputLabel value="Rotina:" for="tipoCON"></p:outputLabel>
+
+						<p:selectOneMenu id="tipoCON" value="#{cuidador.consultas}">
+							<p:ajax />
+							<f:selectItem itemLabel="Selecione uma Rotina" />
+							<f:selectItems value="#{cuidador.rotinaSelected.tipo}" var="item"
+								itemValue="#{item}" itemLabel="#{item.descricao}" />
+						</p:selectOneMenu>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.consultas.name() == 'CONSULTA' and cuidador.rotinaSelected.name() == 'CONSULTAS'}">
+						<p:outputLabel value="Descrição:" for="descCON"></p:outputLabel>
+						<p:inputTextarea id="descCON"
+							value="#{cuidador.evento.respeventos}" maxlength="255"></p:inputTextarea>
+					</pm:field>
+
+					<!-- fim da consulta -->
+					<!--  inicio bem estar -->
+					<pm:field
+						rendered="#{cuidador.rotinaSelected.name() == 'BEMESTAR'}">
+						<p:outputLabel value="Rotina:" for="tipoBEM"></p:outputLabel>
+
+						<p:selectOneMenu id="tipoBEM" value="#{cuidador.bemEstar}">
+							<p:ajax />
+							<f:selectItem itemLabel="Selecione uma Rotina" />
+							<f:selectItems value="#{cuidador.rotinaSelected.tipo}" var="item"
+								itemValue="#{item}" itemLabel="#{item.descricao}" />
+						</p:selectOneMenu>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.bemEstar.name() == 'ACORDAR' and cuidador.rotinaSelected.name() == 'BEMESTAR'}">
+						<p:outputLabel value="Quantidade:" for="opACORDAR"></p:outputLabel>
+						<p:selectOneRadio id="opACORDAR"
+							value="#{cuidador.evento.respeventos}">
+							<f:selectItems value="#{cuidador.bemEstar.opcoes}" var="opcao"
+								itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.bemEstar.name() == 'DORMIR' and cuidador.rotinaSelected.name() == 'BEMESTAR'}">
+						<p:outputLabel value="Quantidade:" for="opDORMIR"></p:outputLabel>
+						<p:selectOneRadio id="opDORMIR"
+							value="#{cuidador.evento.respeventos}">
+							<f:selectItems value="#{cuidador.bemEstar.opcoes}" var="opcao"
+								itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.bemEstar.name() == 'PASSEIOS' and cuidador.rotinaSelected.name() == 'BEMESTAR'}">
+						<p:outputLabel value="Quantidade:" for="opPASSEIOS"></p:outputLabel>
+						<p:selectOneRadio id="opPASSEIOS"
+							value="#{cuidador.evento.respeventos}">
+							<f:selectItems value="#{cuidador.bemEstar.opcoes}" var="opcao"
+								itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.bemEstar.name() == 'CONSCIENCIA' and cuidador.rotinaSelected.name() == 'BEMESTAR'}">
+						<p:outputLabel value="Quantidade:" for="opCONSC"></p:outputLabel>
+						<p:selectOneRadio id="opCONSC"
+							value="#{cuidador.evento.respeventos}">
+							<f:selectItems value="#{cuidador.bemEstar.opcoes}" var="opcao"
+								itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{cuidador.bemEstar.name() == 'HUMOR' and cuidador.rotinaSelected.name() == 'BEMESTAR'}">
+						<p:outputLabel value="Quantidade:" for="opHUMOR"></p:outputLabel>
+						<p:selectOneRadio id="opHUMOR"
+							value="#{cuidador.evento.respeventos}">
+							<f:selectItems value="#{cuidador.bemEstar.opcoes}" var="opcao"
+								itemLabel="#{opcao}" itemValue="#{opcao}" />
+						</p:selectOneRadio>
+					</pm:field>
+					<pm:field
+						rendered="#{(cuidador.bemEstar.name() == 'HUMOR' or cuidador.bemEstar.name() == 'CONSCIENCIA' or cuidador.bemEstar.name() == 'PASSEIOS'
+						or cuidador.bemEstar.name() == 'DORMIR' or cuidador.bemEstar.name() == 'ACORDAR' 
+						) and cuidador.rotinaSelected.name() == 'BEMESTAR'}">
+						<p:outputLabel value="Obs:" for="obsBE"></p:outputLabel>
+						<p:inputTextarea maxlength="255" id="obsBE"
+							value="#{cuidador.evento.obsevento}"></p:inputTextarea>
+					</pm:field>
+					<pm:field rendered="#{cuidador.check}">
+						<p:outputLabel for="time-event" value="Horário:"></p:outputLabel>
+						<p:inputText type="time" id="time-event" name="time-event"
+							value="#{cuidador.evento.hour}" required="true" />
+					</pm:field>
+					<!-- fim bemEstar -->
+					<pm:field rendered="#{cuidador.check}">
+						<p:commandButton icon="ui-icon-check" value="Salvar"
+							iconPos="right" actionListener="#{cuidador.addEvento}"></p:commandButton>
+					</pm:field>
+
+
+
+				</h:form>
+
+				<h:form id="listeventos">
+					<pm:field rendered="#{cuidador.check}">
+						<h:outputText value="Eventos" />
+					</pm:field>
+					<pm:field rendered="#{cuidador.check}">
+						<p:dataTable value="#{cuidador.eventos}" var="evento"
+							emptyMessage="Não existe eventos na data de hoje">
+							<p:column headerText="Hora">
+								<h:outputText value="#{evento.hour}" />
+							</p:column>
+							<p:column headerText="Evento">
+								<h:inputTextarea readonly="true"
+									value="#{evento.grupoevento} - #{evento.subgrupoevento} - #{evento.respeventos} - #{evento.obsevento}" />
+							</p:column>
+							<p:column>
+								<p:commandButton icon="ui-icon-delete"
+									action="#{cuidador.excluirEvento(evento)}"></p:commandButton>
+
+							</p:column>
+						</p:dataTable>
+					</pm:field>
+				</h:form>
+
+				<script type="text/javascript">
+    var x = new Date();
+    var y;
+	if(!y){
+      y = x.getHours();
+
+
+    if(y &lt; 10){
+    y= 0+""+y;
+    }
+    var z = x.getMinutes();
+    if(z &lt; 10){
+    z= 0+""+z;
+    }
+    y=y+":"+z;
+	}
+    if (!jQuery("#main\\:time-event_input").attr('value')){
+    	jQuery("#main\\:time-event_input").attr('value',y);
+        }
+
+</script>
+			</p:outputPanel>
 
 		</pm:content>
+		<pm:footer>
 
-		<ui:include src="/app/cuidador/footer.xhtml" />
-
+		</pm:footer>
 	</pm:page>
 	<pm:page id="convites">
-	<ui:include src="/app/cuidador/header.xhtml">
+		<ui:include src="/app/cuidador/header.xhtml">
 			<ui:param name="headertext" value="Convites" />
 		</ui:include>
-	<pm:content>
-	<pm:field>
-	<p:dataList value="#{cuidador.convites}" var="convite">
-	<f:facet name="header">Pacientes</f:facet>
-				<p:commandButton value="#{convite.idpaciente.nome}"
-					action="#{cuidador.aceitaConvite(convite)}"></p:commandButton>
-			</p:dataList>
+		<pm:content>
+			<pm:field>
+				<p:dataList value="#{cuidador.convites}" var="convite">
+					<f:facet name="header">Você tem #{cuidador.convites.size().toString()} convite</f:facet>
+					<p:commandButton value="#{convite.idpaciente.nome}"
+						icon="ui-icon-check" iconPos="right"
+						actionListener="#{cuidador.aceitaConvite(convite)}"
+						action="pm:main" update="@(#main),@(#convites),@(#checkin)"></p:commandButton>
+				</p:dataList>
 			</pm:field>
-			</pm:content>
+		</pm:content>
 	</pm:page>
-	
+
 	<pm:page id="checkin">
-	<ui:include src="/app/cuidador/header.xhtml">
+		<ui:include src="/app/cuidador/header.xhtml">
 			<ui:param name="headertext" value="CheckIn" />
 		</ui:include>
-	<pm:content>
-	
-		<pm:field>
+		<pm:content>
+
+			<pm:field>
 				<p:dataTable value="#{cuidador.pacientes}" var="paciente"
 					emptyMessage="Nenhum paciente cadastrado">
-					<p:column headerText="Paciente">
+					<p:column headerText="Pacientes">
 						<h:outputText value="#{paciente.nome}" />
 					</p:column>
 					<p:column>
-					<h:form>
-						<p:commandButton value="CheckIN"
-							actionListener="#{cuidador.checkin(paciente)}" action="pm:main" update="@(#main)"></p:commandButton>
-							</h:form>
+						<h:form>
+							<p:commandButton icon="ui-icon-check"
+								actionListener="#{cuidador.checkin(paciente)}" action="pm:main"
+								update="@(#main),@(#convites),@(#checkin)"></p:commandButton>
+						</h:form>
 					</p:column>
 				</p:dataTable>
 			</pm:field>
-			</pm:content>
-	</pm:page>	
+		</pm:content>
+	</pm:page>
 	<ui:include src="/app/cuidador/menu.xhtml" />
-
 
 
 </h:body>

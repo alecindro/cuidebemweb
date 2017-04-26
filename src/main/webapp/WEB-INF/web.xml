@@ -61,9 +61,13 @@
     <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
     <param-value>resources.application</param-value>
   </context-param>
+  
+  <listener>
+    <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+</listener>
 <filter>
 		<filter-name>SecurityFilter</filter-name>
-		<filter-class>org.apache.shiro.web.servlet.IniShiroFilter</filter-class>
+		<filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
 
 	</filter>
 
@@ -75,7 +79,9 @@
 		<dispatcher>INCLUDE</dispatcher>
 		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
-
+<session-config>
+<session-timeout>1</session-timeout>
+</session-config>
    
   <resource-ref>
     <description>DB Connection</description>
@@ -86,4 +92,11 @@
   <welcome-file-list>
   <welcome-file>/app/index.xhtml</welcome-file>
   </welcome-file-list>
+  
+  
+ <context-param>
+<param-name>javax.faces.FACELETS_BUFFER_SIZE</param-name>
+<param-value>500000</param-value>
+</context-param>
+  
 </web-app>
